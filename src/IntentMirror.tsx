@@ -84,9 +84,9 @@ function readIntent(text: string): Intent {
       : { id: 'length', label: 'Length', value: '~3 short paragraphs', assumed: true },
   );
 
-  const audMatch = lower.match(/\b(?:for|aimed at|to)\s+(execs?|executives?|the exec team|the board|leadership|customers?|engineers?|beginners?|a new grad|clients?|stakeholders?)\b/);
+  const audMatch = lower.match(/\b(?:for|aimed at|to)\s+(?:the |our |my )?(execs?|executives?|exec team|board|leadership|customers?|engineers?|beginners?|a new grad|clients?|stakeholders?)\b/);
   const audValue = audMatch
-    ? audMatch[1].replace(/^execs?$|^executives?$|^the exec team$/, 'execs')
+    ? audMatch[1].replace(/^(execs?|executives?|exec team)$/, 'execs').replace(/^board$/, 'the board')
     : null;
   specs.push(
     audValue
@@ -192,7 +192,9 @@ export default function IntentMirror({ onSend }: { onSend?: (t: string) => void 
 
   const isEmpty = text.trim().length === 0;
   const active = !isEmpty && phase === 'idle';
-  const lowConfidence = baseIntent.confidence < 0.62;
+  // A vague object ("summarise this" with nothing attached) always warrants a check,
+  // however much else was stated: it's the top consequence the mirror would raise.
+  const lowConfidence = baseIntent.confidence < 0.62 || baseIntent.objectVague;
   const consequence = topConsequence(intent);
   const shape = shapePreview(intent);
 
