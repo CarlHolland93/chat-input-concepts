@@ -16,6 +16,36 @@ The stance across all four: nudge, don't gate. Every state ships a next action.
 Everything runs on local heuristics and canned samples. Nothing calls a model.
 The point is the interaction, not the classifier.
 
+## See them work
+
+### Prompt quality
+
+A vague ask scores 15%. The breakdown points at the missing output format, and
+adding it takes the score to 75%.
+
+<img src="docs/prompt-quality.gif" width="738" alt="Typing a prompt that grows from 'summarise the deck' to a scoped request. The score climbs from 15% to 55%, the breakdown shows Output format at 0 of 20, and adding a markdown table instruction lifts it to 75%.">
+
+### Context budget
+
+The quiet pill opens onto what fills the window. Trimming the conversation
+frees 31K tokens and the pill drops from 50% to 34%.
+
+<img src="docs/context-budget.gif" width="738" alt="Clicking the 50% pill opens a breakdown of system prompt, conversation, documents and this message. Trim conversation frees 31K and the pill drops to 34%.">
+
+### Intent mirror
+
+"Summarise this" with nothing attached triggers the pre-flight. What you said
+is solid, what it assumed is dashed, and an assumption swaps in place.
+
+<img src="docs/intent-mirror.gif" width="738" alt="Sending 'summarise this for the execs' opens the mirror. Audience shows as execs, length, tone and format are dashed as assumed, and the length chip is switched to one paragraph.">
+
+### Model router
+
+A lookup routes to Haiku. A refactor that asks for trade-offs re-routes to
+Opus as you type.
+
+<img src="docs/model-router.gif" width="738" alt="Typing 'What's the capital of Portugal?' moves the model pill from Sonnet to Haiku. Replacing it with a React refactor request re-routes the pill to Opus.">
+
 ## Run it
 
 ```
