@@ -4,6 +4,18 @@ Four concepts for the box you type into when you talk to a model. Each one
 gives the person a piece of control or transparency that the usual empty field
 hides. Switch between them at the top of the page, or compare all four at once.
 
+**[Try the playground](https://carlholland93.github.io/chat-input-concepts/)** —
+opens in your browser, with no account, API key or installation.
+
+## Status
+
+An interaction prototype. All four concepts run on local heuristics and canned
+samples; nothing calls a model. Scores, token budgets and model routing illustrate
+the interaction and are not measurements of a connected AI service. Messages stay
+in memory in the current tab and clear when you refresh.
+
+## The concepts
+
 | Concept | The idea |
 |---|---|
 | Prompt quality | A live score as you write, from six weighted dimensions: a scoped ask, concrete specs, an output shape, audience, guardrails and examples, with penalties for filler and hedging. Starter prompts with fill-in slots. |
@@ -12,9 +24,6 @@ hides. Switch between them at the top of the page, or compare all four at once.
 | Model router | A classifier reads the shape of the ask and picks a tier. The model pill is the router: it re-routes as you type, shakes once when it swaps, and can be pinned. |
 
 The stance across all four: nudge, don't gate. Every state ships a next action.
-
-Everything runs on local heuristics and canned samples. Nothing calls a model.
-The point is the interaction, not the classifier.
 
 ## See them work
 
@@ -48,10 +57,25 @@ Opus as you type.
 
 ## Run it
 
+Requires Node.js 22.12+ and pnpm 10.32.1 (also recorded in `package.json`).
+
 ```
-pnpm install
-pnpm dev        # http://localhost:5180
+pnpm install --frozen-lockfile
+pnpm dev        # http://localhost:5180/chat-input-concepts/
 ```
+
+## Check and build
+
+```sh
+pnpm typecheck  # strict TypeScript validation
+pnpm build      # typecheck, then create the production bundle in dist/
+pnpm preview    # http://localhost:4173/chat-input-concepts/
+```
+
+GitHub Actions checks a clean install and production build on pull requests and
+pushes to `main`. A successful build on `main` publishes the playground to GitHub
+Pages. These checks cover types and bundling; interaction behaviour is checked
+manually.
 
 ## Stack
 
